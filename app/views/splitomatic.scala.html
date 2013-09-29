@@ -1,0 +1,77 @@
+@(paramForm: Form[SplitDiagramParameters], 
+  params:    Either[List[String], Option[SplitDiagram]])
+
+@import helper._
+
+@main(Html("Split-o-matic"), nav = "splitomatic") {    
+
+  <div class="description">
+    Build a geometrically correct Split diagram by...:
+  </div>
+
+  <div class="action">
+    @helper.form(action = routes.Splitomatic.submit)(showForm(paramForm))
+  </div>
+
+  <div class="diagram">
+    @params.fold(showErrors, showDiagram)
+  </div>
+}
+
+@showForm(paramForm: Form[SplitDiagramParameters]) = {
+      <table border="none">
+        <tr>
+          <td>@inputText(
+                paramForm("total"), 
+                '_label -> "Total:", 
+                '_help -> "Area of circle",
+                '_error -> paramForm.globalError
+            )</td>
+          <td>@inputText(
+                paramForm("a"), 
+                '_label -> "A:", 
+                '_help -> "Area of region a.",
+                '_error -> paramForm.globalError
+            )</td>
+          <td>@inputText(
+                paramForm("b"), 
+                '_label -> "B:", 
+                '_help -> "Area of region b.",
+                '_error -> paramForm.globalError
+            )</td>
+          <td>@inputText(
+                paramForm("ab"), 
+                '_label -> "A\u2229B:", 
+                '_help -> "Intersection of regions a and b.",
+                '_error -> paramForm.globalError
+            )</td>
+        </tr>
+      </table>
+  
+      <input type="submit" value="Submit">
+}
+
+@showErrors(errors: List[String]) = {
+    <span id="errors">
+       <ul> @errors.map { error =>
+         <li class="error">@error</li>
+       }
+       </ul>
+    </span>
+}
+
+@showDiagram(diagram: Option[SplitDiagram]) = {
+  @diagram.map { d =>
+    <span id="diagram">
+          Attributes: <span id="attributes">@d.toSvgAttributes</span> 
+      <svg viewBox="@d.gridDimension.toSvgViewBoxAttribute" 
+           height="65%" version="1.1" id="svgelem" xmlns="http://www.w3.org/2000/svg">
+        <g stroke-width="100%" stroke-dasharray="0.1,0.9" stroke="lightblue" id="grid">@d.gridDimension.toSvgGrid</g>
+        <g stroke-width="0.2%" stroke="red" fill="none" id="axes">@d.gridDimension.toSvgAxes</g>
+        <g stroke-width="0.5%" stroke="blue" fill="none" id="circles">@d.toSvgCircle</g>
+        <g stroke-width="0.5%" stroke="black" fill="red" id="centers">@d.toSvgCenters</g>
+        <g stroke-width="0.4%" stroke="green" fill="none" id="centers">@d.toSvgSegments</g>
+      </svg>
+    </span>
+  }
+}

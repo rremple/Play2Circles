@@ -1,0 +1,92 @@
+@(paramForm: Form[VennDiagramParameters], 
+  params:    Either[List[String], Option[VennDiagram]])
+
+@import helper._
+
+@main(Html("Venn-o-matic"), nav = "vennomatic") {    
+
+  <div class="description">
+    Build a geometrically correct Venn diagram by entering areas for each 
+    of three circles and their intersections:
+  </div>
+
+  <div class="action">
+    @helper.form(action = routes.Vennomatic.submit)(showForm(paramForm))
+  </div>
+
+  <div class="diagram">
+    @params.fold(showErrors, showDiagram)
+  </div>
+}
+
+@showForm(paramForm: Form[VennDiagramParameters]) = {
+      <table border="none">
+        <tr>
+          <td>@inputText(
+                paramForm("a"), 
+                '_label -> "A:", 
+                '_help -> "Area of circle a.",
+                '_error -> paramForm.globalError
+            )</td>
+          <td>@inputText(
+                paramForm("b"), 
+                '_label -> "B:", 
+                '_help -> "Area of circle b.",
+                '_error -> paramForm.globalError
+            )</td>
+          <td>@inputText(
+                paramForm("c"), 
+                '_label -> "C:", 
+                '_help -> "Area of circle c.",
+                '_error -> paramForm.globalError
+            )</td>
+        </tr>
+        <tr>
+          <td>@inputText(
+                paramForm("ab"), 
+                '_label -> "A\u2229B:", 
+                '_help -> "Intersection of circles a and b.",
+                '_error -> paramForm.globalError
+            )</td>
+          <td>@inputText(
+                paramForm("bc"), 
+                '_label -> "B\u2229C:", 
+                '_help -> "Intersection of circles b and c.",
+                '_error -> paramForm.globalError
+            )</td>
+          <td>@inputText(
+                paramForm("ca"), 
+                '_label -> "C\u2229A:", 
+                '_help -> "Intersection of circles c and a.",
+                '_error -> paramForm.globalError
+            )</td>
+        </tr>
+      </table>
+  
+      <input type="submit" value="Submit">
+}
+
+@showErrors(errors: List[String]) = {
+    <span id="errors">
+       <ul> @errors.map { error =>
+         <li class="error">@error</li>
+       }
+       </ul>
+    </span>
+}
+
+@showDiagram(diagram: Option[VennDiagram]) = {
+  @diagram.map { d =>
+    <span id="diagram">
+      A\u2229B\u2229C: <span id="intersectionABC">@d.toSvgIntersectionABC</span> 
+      <svg viewBox="@d.toSvgViewBoxAttribute" 
+           height="65%" version="1.1" id="svgelem" xmlns="http://www.w3.org/2000/svg">
+        <g stroke-width="100%" stroke-dasharray="0.1,0.9" stroke="lightblue" id="grid">@d.toSvgGrid</g>
+        <g stroke-width="0.2%" stroke="red" fill="none" id="axes">@d.toSvgAxes</g>
+        <g stroke-width="0.5%" stroke="blue" fill="none" id="circles">@d.toSvgCircles</g>
+        <g stroke-width="0.4%" stroke="red" fill="blue" id="centers">@d.toSvgCenters</g>
+        <g stroke-width="0.4%" stroke="black" fill="none" id="chords">@d.toSvgChords</g>
+      </svg>
+    </span>
+  }
+}
