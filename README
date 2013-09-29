@@ -18,4 +18,4 @@
 
     Now includes a Split-o-matic, to create a circle divided by two line 
     segments where the areas of the 4 regions (A^B, A^~B, ~A^B, ~A^~B) are 
-    based geometrically on three attributes: total (A^~A = B^~B), A, B, A^B.
+    based geometrically on four attributes: total (A^~A = B^~B), A, B, A^B.
