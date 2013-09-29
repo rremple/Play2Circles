@@ -1,4 +1,21 @@
-This is your new Play 2.1 application
-=====================================
+    From Wikipedia ( http://wikipedia.org/wiki/Venn_diagram ):
 
-This file will be packaged with your application, when using `play dist`.
+        Venn diagrams or set diagrams are diagrams that show all hypothetically 
+        possible logical relations between a finite collection of sets 
+        (aggregation of things). Venn diagrams were conceived around 1880 by 
+        John Venn. They are used to teach elementary set theory, as well as 
+        illustrate simple set relationships in probability, logic, statistics, 
+        linguistics and computer science (see logical connectives).
+    
+    Although Venn diagrams are meant to be abstract representations of sets
+    and set relationships, people often intentionally scale the shapes. 
+    Larger sets are represented by larger shapes and larger intersections 
+    are represented by greater overlaps of those shapes. But in general, 
+    folks only take this idea part of the way. Although shapes and 
+    intersections are often scaled, in general the scaling is "eyeballed" 
+    and not calculated mathematically. This tool allows a user to specify 
+    precise sizes of three sets and the intersections of each pair of sets. 
+
+    Now includes a Split-o-matic, to create a circle divided by two line 
+    segments where the areas of the 4 regions (A^B, A^~B, ~A^B, ~A^~B) are 
+    based geometrically on three attributes: total (A^~A = B^~B), A, B, A^B.
