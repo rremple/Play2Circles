@@ -22,7 +22,7 @@ class SplitDiagram(params: SplitDiagramParameters) {
 
   /*
    * returns the area and the intersection point as a pair
-   */ 
+   */
   def abAttributes(theta: Double) = {
     val betaChord = betaChordRaw.rotate(theta)
     val p = Point(alpha, ((beta / cos(theta) - alpha) / tan(theta)))
@@ -60,12 +60,14 @@ class SplitDiagram(params: SplitDiagramParameters) {
     <g>
       { rCircle.toSvgCenter }
       { intersectionPoint.toSvgPoint("p") }
+    </g>
+
+  def toSvgChords =
+    <g>
       { alphaChord.toSvg("alpha") }
       { betaChord.toSvg("beta") }
     </g>
-
-  def toSvgSegments =
-    <g>{ LineSegment(betaChord.p1, alphaChord.p2).toSvg("alphaChord") }</g>
+  //{ LineSegment(betaChord.p1, alphaChord.p2).toSvg("alphaChord") }
 }
 
 object SplitDiagram {
