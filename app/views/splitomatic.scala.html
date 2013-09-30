@@ -6,7 +6,9 @@
 @main(Html("Split-o-matic"), nav = "splitomatic") {    
 
   <div class="description">
-    Build a geometrically correct Split diagram by...:
+    Build a geometrically correct Split diagram by entering a total area and how
+    that area should be divided by attribute A, attribute B, and attribute A\u2229B.
+    
   </div>
 
   <div class="action">
@@ -70,7 +72,7 @@
         <g stroke-width="0.2%" stroke="red" fill="none" id="axes">@d.gridDimension.toSvgAxes</g>
         <g stroke-width="0.5%" stroke="blue" fill="none" id="circles">@d.toSvgCircle</g>
         <g stroke-width="0.5%" stroke="black" fill="red" id="centers">@d.toSvgCenters</g>
-        <g stroke-width="0.4%" stroke="green" fill="none" id="centers">@d.toSvgSegments</g>
+        <!-- stroke-width="0.4%" stroke="green" fill="none" id="centers">@d.toSvgSegments  -->
       </svg>
     </span>
   }

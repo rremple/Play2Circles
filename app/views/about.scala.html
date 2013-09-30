@@ -1,9 +1,8 @@
-@main(Html("Venn-o-matic"), nav = "about") {
+@main(Html("Venn-o-matic & Split-o-matic"), nav = "about") {
 
   <div class="description">
 
-    <p>From <a href="http://wikipedia.org/wiki/Venn_diagram">Wikipedia</a>:
-
+    <p>From <a href="http://wikipedia.org/wiki/Venn_diagram">Wikipedia</a>:    
     <blockquote>
         Venn diagrams or set diagrams are diagrams that show all hypothetically 
         possible logical relations between a finite collection of sets 
@@ -12,6 +11,9 @@
         illustrate simple set relationships in probability, logic, statistics, 
         linguistics and computer science (see logical connectives).
     </blockquote>
+    </p>
+    
+    <br/>
 
     <p>Although Venn diagrams are meant to be abstract representations of sets
     and set relationships, people often intentionally scale the shapes. 
@@ -19,9 +21,18 @@
     are represented by greater overlaps of those shapes. But in general, 
     folks only take this idea part of the way. Although shapes and 
     intersections are often scaled, in general the scaling is "eyeballed" 
-    and not calculated mathematically. This tool allows a user to specify 
+    and not calculated mathematically. The Venn-o-matic allows a user to specify 
     precise sizes of three sets and the intersections of each pair of sets. 
+    </p>
+    
+    <br/>
 
+    <p>The Split-o-matic is similar, but using lines to divide a single circle.
+    It assumes a population where each individual has one, the other, both, or 
+    neither of two attributes A and B. The total population is scaled as a circle
+    where the A and B regions are defined by chords within the circle.
+    </p>
+    
   </div>
 
 }
