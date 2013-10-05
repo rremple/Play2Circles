@@ -33,7 +33,10 @@ object Solver {
   /*
    * Works for common cases: continuous increasing/decreasing functions of doubles returning doubles
    */
-  def solveForDouble(useMinVal: Double => Boolean)(minBoundry: Double, maxBoundry: Double, targetVal: Double)(f: Double => Double) = {
+  def solveForDouble(useMinVal: Double => Boolean)(messageTag: String,
+                                                   minBoundry: Double,
+                                                   maxBoundry: Double, 
+                                                   targetVal: Double)(f: Double => Double) = {
     case class DoubleTerm(count: Int, minVal: Double, maxVal: Double, guess: Double)
     def doubleTermMethodNext(previous: DoubleTerm) = {
       val guessVal = (previous.minVal + previous.maxVal) / 2
@@ -41,9 +44,10 @@ object Solver {
       if (useMinVal(guessError)) DoubleTerm(previous.count + 1, guessVal, previous.maxVal, guessVal)
       else DoubleTerm(previous.count + 1, previous.minVal, guessVal, guessVal)
     }
-    Solver.getLast(Solver.iterateUntil { (guess: Double) =>
+    val stream = iterateUntil { (guess: Double) =>
       Scalar.veryClose(f(guess), targetVal)
-    }(doubleTermMethodNext)(_.guess)(DoubleTerm(0, minBoundry, maxBoundry, 0)), "continuous decreasing function")
+    }(doubleTermMethodNext)(_.guess)(DoubleTerm(0, minBoundry, maxBoundry, 0))
+    getLast(stream, messageTag)
   }
 
   def solveForDecreasing = solveForDouble(0 <) _

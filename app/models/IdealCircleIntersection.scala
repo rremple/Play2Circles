@@ -27,7 +27,9 @@ case class IdealCircleIntersection(c1: IdealCircle, c2: IdealCircle, interesctio
 
   val sep = {
     if ((r1 == 0) || (r2 == 0)) 0
-    else Solver.solveForDecreasing(abs(r1 - r2), r1 + r2, interesctionArea) { intersectionAttributes(_)._1 }
+    else Solver.solveForDecreasing("intersecting circle separation", abs(r1 - r2), r1 + r2, interesctionArea) {
+      intersectionAttributes(_)._1
+    }
   }
 
   def area = intersectionAttributes(sep)._1

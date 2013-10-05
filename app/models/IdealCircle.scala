@@ -35,7 +35,9 @@ case class IdealCircle(label: String, area: Double) {
   }
 
   def chord(areaTarget: Double) = {
-    val chordX = Solver.solveForDecreasing(-radius, radius, areaTarget) { chordAttributes(_)._1 }
+    val chordX = Solver.solveForDecreasing("area defined by chord", -radius, radius, areaTarget) {
+      chordAttributes(_)._1
+    }
     val chordY = sqrt(square(radius) - square(chordX))
     LineSegment(Point(chordX, chordY), Point(chordX, -chordY))
   }

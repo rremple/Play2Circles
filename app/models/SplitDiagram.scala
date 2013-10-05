@@ -33,7 +33,9 @@ class SplitDiagram(params: SplitDiagramParameters) {
   }
 
   val zeroAreaTheta = -(acos(alpha / circle.radius) + acos(beta / circle.radius))
-  val theta = Solver.solveForIncreasing(zeroAreaTheta, 0, params.abArea) { abAttributes(_)._1 }
+  val theta = Solver.solveForIncreasing("ab angle for split", zeroAreaTheta, 0, params.abArea) {
+    abAttributes(_)._1
+  }
   val intersectionPoint = abAttributes(theta)._2
 
   //  val b = bRaw.rotate(theta)
